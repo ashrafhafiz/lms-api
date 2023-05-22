@@ -1,0 +1,247 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "LMS-API",
+    "dateExported": "2023-05-22T18:56:10.504Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "eb42203b-f6fa-4736-a032-49748bd1a411",
+            "name": "Auth",
+            "containerId": "",
+            "created": "2023-05-22T16:04:18.719Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "0e2565e4-b03b-47d7-a2ba-66e32513728d",
+            "name": "Users",
+            "containerId": "",
+            "created": "2023-05-22T16:04:18.720Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "a0b1ce21-dc74-4ab1-803d-0d9438b90f4a",
+            "name": "Courses",
+            "containerId": "",
+            "created": "2023-05-22T16:04:18.721Z",
+            "sortNum": 30000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "1cc3c7ce-f45b-4691-a773-52620b2e2e04",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "eb42203b-f6fa-4736-a032-49748bd1a411",
+            "name": "Register user",
+            "url": "http://localhost:8000/api/v1/auth/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-05-22T16:04:18.720Z",
+            "modified": "2023-05-22T17:47:33.885Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"firstName\":\"TBD 3\",\n  \"lastName\":\"Hafiz (student)\",\n  \"email\":\"tbd3@gmail.com\",\n  \"password\": \"P@ssw0rd\",\n  \"role\": \"student\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c086c2ca-95ea-4fbb-9c94-fa8468433a91",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "a0b1ce21-dc74-4ab1-803d-0d9438b90f4a",
+            "name": "Get all courses",
+            "url": "http://localhost:8000/api/v1/courses",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-05-22T16:04:18.721Z",
+            "modified": "2023-05-22T16:04:18.721Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9303b6a1-9af6-49f9-9d23-d12f0b55c4d8",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "0e2565e4-b03b-47d7-a2ba-66e32513728d",
+            "name": "Get all users",
+            "url": "http://localhost:8000/api/v1/users",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-05-22T16:04:18.722Z",
+            "modified": "2023-05-22T16:04:18.722Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "02a93bc3-a798-48b8-98ce-dc2fc56433e1",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "eb42203b-f6fa-4736-a032-49748bd1a411",
+            "name": "Login user",
+            "url": "http://localhost:8000/api/v1/auth/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-05-22T16:04:18.723Z",
+            "modified": "2023-05-22T16:04:18.723Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"amgadha1@gmail.com\",\n  \"password\": \"P@ssw0rd\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "aa6955d5-98fa-4ff9-82bd-f80ee804bfd7",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "a0b1ce21-dc74-4ab1-803d-0d9438b90f4a",
+            "name": "Create course",
+            "url": "http://localhost:8000/api/v1/courses",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-05-22T16:04:18.724Z",
+            "modified": "2023-05-22T16:55:00.648Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"Math 103\",\n  \"description\": \"Mathematics Year 3\"\n  \n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e4f31f86-c548-40a4-a357-5500c8e40460",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "a0b1ce21-dc74-4ab1-803d-0d9438b90f4a",
+            "name": "Get course by ID",
+            "url": "http://localhost:8000/api/v1/courses/646b9e5b2dc3722e065c38fe",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-05-22T16:04:18.725Z",
+            "modified": "2023-05-22T17:08:04.952Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "14496bff-8f3d-4b6c-90e2-549caee4be42",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "0e2565e4-b03b-47d7-a2ba-66e32513728d",
+            "name": "Get user by ID",
+            "url": "http://localhost:8000/api/v1/users/646bb7e5e33535f5a8f10f2f",
+            "method": "GET",
+            "sortNum": 45000,
+            "created": "2023-05-22T17:09:46.176Z",
+            "modified": "2023-05-22T18:45:38.539Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d7be67c3-cc37-494b-bbaf-fe904f74179d",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "a0b1ce21-dc74-4ab1-803d-0d9438b90f4a",
+            "name": "Update course by ID",
+            "url": "http://localhost:8000/api/v1/courses/646b58e1ad2ece6820343d07",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2023-05-22T16:04:18.726Z",
+            "modified": "2023-05-22T16:04:18.726Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"Math 101\",\n  \"description\": \"Mathematics Year 1\"\n  \n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c88826df-c10a-42e1-9c4b-6c91eeec4025",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "a0b1ce21-dc74-4ab1-803d-0d9438b90f4a",
+            "name": "Add Instructor to course",
+            "url": "http://localhost:8000/api/v1/courses/646b9e642dc3722e065c3904/instructors/646b92cd7cc1b09db4268c05",
+            "method": "PUT",
+            "sortNum": 55000,
+            "created": "2023-05-22T16:04:18.728Z",
+            "modified": "2023-05-22T16:57:18.515Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "1c249eb0-3ef5-4573-8a4d-d799294bff9a",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "a0b1ce21-dc74-4ab1-803d-0d9438b90f4a",
+            "name": "Add assistant to course",
+            "url": "http://localhost:8000/api/v1/courses/646b9e642dc3722e065c3904/assistants/646b933a7cc1b09db4268c14",
+            "method": "PUT",
+            "sortNum": 56250,
+            "created": "2023-05-22T16:04:18.729Z",
+            "modified": "2023-05-22T16:59:50.225Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3181588f-e9a0-40d1-874b-3f2c2a7de4e4",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "a0b1ce21-dc74-4ab1-803d-0d9438b90f4a",
+            "name": "Remove Instructor from course",
+            "url": "http://localhost:8000/api/v1/courses/646b58f3ad2ece6820343d09/instructors/646b5bdb227672d674a0c7d4",
+            "method": "DELETE",
+            "sortNum": 57500,
+            "created": "2023-05-22T16:04:18.730Z",
+            "modified": "2023-05-22T16:04:18.730Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4241a077-ae35-47b6-851b-c3b26c1e0634",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "0e2565e4-b03b-47d7-a2ba-66e32513728d",
+            "name": "Delete user by ID",
+            "url": "http://localhost:8000/api/v1/users/646b92e17cc1b09db4268c08",
+            "method": "DELETE",
+            "sortNum": 57500,
+            "created": "2023-05-22T17:11:02.751Z",
+            "modified": "2023-05-22T18:48:18.190Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "1ae5ac75-65e5-49e5-b99e-2001b598a510",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "a0b1ce21-dc74-4ab1-803d-0d9438b90f4a",
+            "name": "Delete course by ID",
+            "url": "http://localhost:8000/api/v1/courses/646b58e1ad2ece6820343d07",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-05-22T16:04:18.731Z",
+            "modified": "2023-05-22T16:04:18.731Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3d581f76-a7de-43d2-9d94-3b9a00a2f94b",
+            "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
+            "containerId": "0e2565e4-b03b-47d7-a2ba-66e32513728d",
+            "name": "Enroll in a course",
+            "url": "http://localhost:8000/api/v1/users/646bb7e5e33535f5a8f10f2f/courses/646b9e602dc3722e065c3901/enroll",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-05-22T17:02:31.171Z",
+            "modified": "2023-05-22T18:45:20.832Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
