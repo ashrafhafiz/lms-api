@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "LMS-API",
-    "dateExported": "2023-05-22T18:56:10.504Z",
+    "dateExported": "2023-05-24T09:44:34.132Z",
     "version": "1.1",
     "folders": [
         {
@@ -65,13 +65,29 @@
             "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
             "containerId": "0e2565e4-b03b-47d7-a2ba-66e32513728d",
             "name": "Get all users",
-            "url": "http://localhost:8000/api/v1/users",
+            "url": "http://localhost:8000/api/v1/users?page=3&sortby=firstName&order=asc",
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-05-22T16:04:18.722Z",
-            "modified": "2023-05-22T16:04:18.722Z",
+            "modified": "2023-05-24T07:54:40.397Z",
             "headers": [],
-            "params": [],
+            "params": [
+                {
+                    "name": "page",
+                    "value": "3",
+                    "isPath": false
+                },
+                {
+                    "name": "sortby",
+                    "value": "firstName",
+                    "isPath": false
+                },
+                {
+                    "name": "order",
+                    "value": "asc",
+                    "isPath": false
+                }
+            ],
             "tests": []
         },
         {
@@ -117,11 +133,11 @@
             "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
             "containerId": "a0b1ce21-dc74-4ab1-803d-0d9438b90f4a",
             "name": "Get course by ID",
-            "url": "http://localhost:8000/api/v1/courses/646b9e5b2dc3722e065c38fe",
+            "url": "http://localhost:8000/api/v1/courses/646d06c4115e5cb96a93287a",
             "method": "GET",
             "sortNum": 40000,
             "created": "2023-05-22T16:04:18.725Z",
-            "modified": "2023-05-22T17:08:04.952Z",
+            "modified": "2023-05-23T18:33:49.384Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -131,11 +147,11 @@
             "colId": "02141ee1-a6c3-4db0-83f0-3bd294221fa0",
             "containerId": "0e2565e4-b03b-47d7-a2ba-66e32513728d",
             "name": "Get user by ID",
-            "url": "http://localhost:8000/api/v1/users/646bb7e5e33535f5a8f10f2f",
+            "url": "http://localhost:8000/api/v1/users/646d06c4115e5cb96a93281a",
             "method": "GET",
             "sortNum": 45000,
             "created": "2023-05-22T17:09:46.176Z",
-            "modified": "2023-05-22T18:45:38.539Z",
+            "modified": "2023-05-23T18:33:24.474Z",
             "headers": [],
             "params": [],
             "tests": []

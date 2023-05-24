@@ -5,10 +5,27 @@ const Course = require("../models/CourseModel");
 
 // Get all users
 exports.getUsers = asyncHandler(async (req, res) => {
-  const users = await User.find().select(
-    "firstName lastName role enrolledCourses"
-  );
-  res.json(users);
+  const { page, limit, sortby, order } = req.query;
+
+  const sortCriteria = { [sortby]: order === "desc" ? -1 : 1 };
+  const pageNumber = parseInt(page) || 1;
+  const pageSize = parseInt(limit) || 10;
+  const skip = (pageNumber - 1) * pageSize;
+
+  const users = await User.find()
+    .sort(sortCriteria)
+    .skip(skip)
+    .limit(pageSize)
+    .select("firstName lastName role enrolledCourses");
+
+  // Get the total count of users
+  const totalCount = await User.countDocuments();
+  res.json({
+    users,
+    page: pageNumber,
+    limit: pageSize,
+    totalCount,
+  });
 });
 
 // Get a specific user
