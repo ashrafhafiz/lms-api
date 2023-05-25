@@ -14,16 +14,4 @@ router.put("/users/:userId", UserController.updateUser);
 // DELETE /users/:userId
 router.delete("/users/:userId", UserController.deleteUser);
 
-// Enroll in a course
-router.post(
-  "/users/:userId/courses/:courseId/enroll",
-  UserController.enrollCourse
-);
-
-// Withdraw from a course
-router.post(
-  "/users/:userId/courses/:courseId/withdraw",
-  UserController.withdrawCourse
-);
-
 module.exports = router;

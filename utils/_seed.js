@@ -5,7 +5,6 @@ const User = require("../models/UserModel");
 const Course = require("../models/CourseModel");
 const { data } = require("./data");
 const { dbConnect } = require("../database/dbConnect");
-const Enrollment = require("../models/EnrollmentModel");
 
 // console.log(dbConfig.DB_URL);
 
@@ -23,7 +22,6 @@ const seedDatabase = async () => {
     // Clear existing data (optional)
     await User.deleteMany();
     await Course.deleteMany();
-    await Enrollment.deleteMany();
 
     // Create and save new user instances
     const { users, courses } = data;
@@ -41,19 +39,16 @@ const seedDatabase = async () => {
           Math.random() * createdCourses.length
         );
         const courseId = createdCourses[randomCourseIndex]._id;
+        user.enrolledCourses.push(courseId);
 
-        // Enroll student in a course
-        const enrollment = new Enrollment({
-          user: user._id,
-          course: courseId,
-          role: "student",
-          // Additional fields related to enrollment
-        });
-
-        // Save the enrollment
-        await enrollment.save();
+        const course = await Course.findById(courseId);
+        course.students.push(user._id);
+        await course.save();
       }
     }
+
+    // Save the updated users
+    await Promise.all(createdUsers.map((user) => user.save()));
 
     // Distribute Courses To Assistants
     await distributeCoursesToAssistants();
@@ -77,41 +72,34 @@ const distributeCoursesToAssistants = async () => {
     // Retrieve all available courses
     const courses = await Course.find();
 
+    // Sort assistants based on workload (number of assigned courses)
+    assistants.sort(
+      (a, b) => a.enrolledCourses.length - b.enrolledCourses.length
+    );
+
     // Iterate over the courses and assign them to assistants
     for (let course of courses) {
-      // Calculate the workload for each assistant
-      const assistantsWithWorkload = await Promise.all(
-        assistants.map(async (assistant) => {
-          const workload = await Enrollment.countDocuments({
-            course: course._id,
-            assistant: assistant._id,
-          });
-
-          return {
-            assistant: assistant,
-            workload: workload,
-          };
-        })
-      );
-
-      // Sort assistants based on workload (in ascending order)
-      assistantsWithWorkload.sort((a, b) => a.workload - b.workload);
-      // Assign the course to the assistant with the lowest workload
-      const assignedAssistant = assistantsWithWorkload[0].assistant;
+      const assistant = assistants.shift(); // Get the assistant with the least workload
 
       // Assign the course to the assistant
-      const enrollment = new Enrollment({
-        user: assignedAssistant._id,
-        course: course._id,
-        role: "assistant",
-        // Additional fields related to enrollment
-      });
+      assistant.enrolledCourses.push(course._id);
 
-      // Save the enrollment
-      await enrollment.save();
+      // Update the assistant's workload
+      assistants.push(assistant);
+      assistants.sort(
+        (a, b) => a.enrolledCourses.length - b.enrolledCourses.length
+      );
+
+      // Update the course
+      course.assistants.push(assistant._id);
     }
 
+    // Save the updated assistants in the database
+    await Promise.all(assistants.map((assistant) => assistant.save()));
+    await Promise.all(courses.map((course) => course.save()));
+
     console.log("Courses distributed to assistants successfully");
+    // process.exit(); // Terminate the script
   } catch (error) {
     console.error("Error distributing courses:", error);
     process.exit(1); // Terminate the script with an error code
@@ -126,41 +114,34 @@ const distributeCoursesToInstructors = async () => {
     // Retrieve all available courses
     const courses = await Course.find();
 
+    // Sort instructors based on workload (number of assigned courses)
+    instructors.sort(
+      (a, b) => a.enrolledCourses.length - b.enrolledCourses.length
+    );
+
     // Iterate over the courses and assign them to instructors
     for (let course of courses) {
-      // Calculate the workload for each instructor
-      const instructorsWithWorkload = await Promise.all(
-        instructors.map(async (instructor) => {
-          const workload = await Enrollment.countDocuments({
-            course: course._id,
-            instructor: instructor._id,
-          });
-
-          return {
-            instructor: instructor,
-            workload: workload,
-          };
-        })
-      );
-
-      // Sort instructors based on workload (in ascending order)
-      instructorsWithWorkload.sort((a, b) => a.workload - b.workload);
-      // Assign the course to the instructor with the lowest workload
-      const assignedInstructor = instructorsWithWorkload[0].instructor;
+      const instructor = instructors.shift(); // Get the instructor with the least workload
 
       // Assign the course to the instructor
-      const enrollment = new Enrollment({
-        user: assignedInstructor._id,
-        course: course._id,
-        role: "instructor",
-        // Additional fields related to enrollment
-      });
+      instructor.enrolledCourses.push(course._id);
 
-      // Save the enrollment
-      await enrollment.save();
+      // Update the instructor's workload
+      instructors.push(instructor);
+      instructors.sort(
+        (a, b) => a.enrolledCourses.length - b.enrolledCourses.length
+      );
+
+      // Update the course
+      course.instructors.push(instructor._id);
     }
 
+    // Save the updated instructors in the database
+    await Promise.all(instructors.map((instructor) => instructor.save()));
+    await Promise.all(courses.map((course) => course.save()));
+
     console.log("Courses distributed to instructors successfully");
+    // process.exit(); // Terminate the script
   } catch (error) {
     console.error("Error distributing courses:", error);
     process.exit(1); // Terminate the script with an error code

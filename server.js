@@ -1,6 +1,10 @@
+// Setting up .env config file
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config/.env" });
+var colors = require("colors");
 const http = require("http");
 const app = require("./app");
-var colors = require("colors");
+const mongoose = require("mongoose");
 const { dbConnect } = require("./database/dbConnect");
 // const cloudinary = require("cloudinary");
 
@@ -12,13 +16,6 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-// Setting up .env config file
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
-dotenv.config({ path: "./config/.env" });
-const PORT = process.env.PORT || 8000;
-const MODE = process.env.NODE_ENV;
-
 // Connect to MongoDB
 dbConnect();
 
@@ -28,6 +25,9 @@ dbConnect();
 //   api_key: process.env.CLOUD_API_KEY,
 //   api_secret: process.env.CLOUD_API_SECRET,
 // });
+
+const PORT = process.env.PORT || 8000;
+const MODE = process.env.NODE_ENV;
 
 const server = http.createServer(app);
 

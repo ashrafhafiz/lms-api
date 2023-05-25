@@ -18,18 +18,4 @@ router
   .put(CourseController.updateCourse)
   .delete(CourseController.deleteCourse);
 
-// PUT /courses/:courseId/instructors/:instructorId         Add an instructor to a course
-// DELETE /courses/:courseId/instructors/:instructorId      Remove an instructor to a course
-router
-  .route("/courses/:courseId/instructors/:instructorId")
-  .put(CourseController.addInstructor)
-  .delete(CourseController.removeInstructor);
-
-// PUT /courses/:courseId/assistants/:instructorId          Add an assistant to a course
-// DELETE /courses/:courseId/assistants/:instructorId       Remove an assistant to a course
-router
-  .route("/courses/:courseId/assistants/:assistantId")
-  .put(CourseController.addAssistant)
-  .delete(CourseController.removeAssistant);
-
 module.exports = router;

@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Course = require("./CourseModel");
+const { capitalize } = require("../utils/utils");
+const createError = require("http-errors");
+const Enrollment = require("./EnrollmentModel");
 
 const userSchema = new mongoose.Schema(
   {
@@ -26,12 +29,12 @@ const userSchema = new mongoose.Schema(
       enum: ["student", "assistant", "instructor", "admin"],
       default: "student",
     },
-    enrolledCourses: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
-      },
-    ],
+    // enrolledCourses: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Course",
+    //   },
+    // ],
     registeredAt: {
       type: Date,
       default: Date.now,
@@ -65,6 +68,11 @@ userSchema.virtual("registeredSince").get(function () {
 
 // Hash the password before saving the user
 userSchema.pre("save", async function (next) {
+  this.firstName = capitalize(this.firstName);
+  this.lastName = capitalize(this.lastName);
+  this.email = this.email.toLowerCase();
+  this.role = this.role.toLowerCase();
+
   if (!this.isModified("password")) {
     return next();
   }
@@ -83,22 +91,29 @@ userSchema.pre(
   "deleteOne",
   { document: false, query: true },
   async function (next) {
-    const user = await this.model.findOne(this.getFilter());
-    const userId = user._id;
+    try {
+      const user = await this.model.findOne(this.getFilter());
+      if (!user) throw createError(404, "User not found");
+      const userId = user?._id;
 
-    // Find and update related courses
-    await Course.updateMany(
-      {
-        $or: [
-          { students: userId },
-          { instructors: userId },
-          { assistants: userId },
-        ],
-      },
-      { $pull: { students: userId, instructors: userId, assistants: userId } }
-    );
+      // Find and update related courses
+      // await Course.updateMany(
+      //   {
+      //     $or: [
+      //       { students: userId },
+      //       { instructors: userId },
+      //       { assistants: userId },
+      //     ],
+      //   },
+      //   { $pull: { students: userId, instructors: userId, assistants: userId } }
+      // );
 
-    next();
+      // Finde and delete related enrollments
+      await Enrollment.deleteMany({ user: this._id });
+      next();
+    } catch (error) {
+      next(error);
+    }
   }
 );
 
